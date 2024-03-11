@@ -74,11 +74,11 @@ class _AddTodoPageState extends State<AddTodoPage> {
 
   Future<void> updateData() async {
     final todo = widget.todo;
-    if (todo != null) {
-      print('You can not call updated without todo data');
+    if (todo == null) {
+      print('No data');
       return;
     }
-    final id = todo?['_id'];
+    final id = todo['_id'];
     final title = titlecontroller.text;
     final description = descriptioncontroller.text;
     final body = {
@@ -89,7 +89,7 @@ class _AddTodoPageState extends State<AddTodoPage> {
 
     final url = 'https://api.nstack.in/v1/todos/$id';
     final uri = Uri.parse(url);
-    final response = await http.post(
+    final response = await http.put(
       uri,
       body: jsonEncode(body),
       headers: {
